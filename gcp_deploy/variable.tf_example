@@ -1,4 +1,9 @@
-variable "gcp_keys" {
+variable "gcp_public_keys" {
+  type    = string
+  default = "<PATH-TO-YOUR-SSH-KEYS>"
+}
+
+variable "gcp_private_keys" {
   type    = string
   default = "<PATH-TO-YOUR-SSH-KEYS>"
 }
