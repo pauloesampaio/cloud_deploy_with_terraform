@@ -1,0 +1,9 @@
+variable "gcp_keys" {
+  type    = string
+  default = "<PATH-TO-YOUR-SSH-KEYS>"
+}
+
+variable "gcp_credentials" {
+  type    = string
+  default = "<PATH-TO-YOUR-CREDENTIALS>"
+}

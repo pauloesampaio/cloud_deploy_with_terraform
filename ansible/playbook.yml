@@ -1,0 +1,88 @@
+---
+- name: Install docker
+  hosts: all
+  user: ubuntu
+  gather_facts: True
+
+  tasks:
+  - name: update apt-get
+    apt:
+      update_cache: yes
+    become: true
+
+  - name: Install docker dependencies
+    apt:
+      name:
+        - apt-transport-https
+        - ca-certificates
+        - curl
+        - gnupg-agent
+        - software-properties-common
+        - python3-pip
+      state: present
+    become: true
+  
+  - name: Add docker repository key
+    apt_key:
+      url: https://download.docker.com/linux/ubuntu/gpg
+    become: true
+
+  - name: Add docker repository
+    apt_repository:
+      repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ansible_distribution_release}} stable
+    become: true
+
+  - name: update apt-get
+    apt:
+      update_cache: yes
+    become: true
+
+  - name: Install docker
+    apt:
+      name: 
+        - docker-ce
+        - docker-ce-cli 
+        - containerd.io
+      state: present      
+    become: true
+
+  - name: add docker group
+    group:
+      name: docker
+      state: present
+    become: true
+
+  - name: adding user to group 
+    user: 
+      name: ubuntu
+      group: docker 
+    become: true
+
+  - name: reboot
+    reboot:
+      msg: "Reboot initiated by Ansible"
+    become: true
+
+  - name: Install pip based dependencies 
+    pip:
+      name:
+        - docker
+        - docker-compose
+    become: true
+  
+  - name: Install docker-compose
+    get_url: 
+      url: https://github.com/docker/compose/releases/download/1.26.2/docker-compose-{{ansible_system}}-{{ansible_architecture}}
+      dest: /usr/local/bin/docker-compose
+      mode: 'u+x,g+x'
+    become: true
+
+  - name: Clone repo
+    git:
+      repo: https://github.com/pauloesampaio/simple_image_clf.git
+      dest: ./simple_image_clf
+
+  - name: start docker-compose 
+    docker_compose:
+      project_src: ./simple_image_clf
+    become: true

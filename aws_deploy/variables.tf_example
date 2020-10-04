@@ -1,0 +1,9 @@
+variable "aws_keys" {
+  type    = string
+  default = "<PATH-TO-YOUT-SSH-KEYS>"
+}
+
+variable "aws_credentials" {
+  type    = string
+  default = "<PATH-TO-YOUR-CREDENTIALS>"
+}
