@@ -31,7 +31,7 @@ If you want to destroy the instance, you can run `terraform destroy <DESIRED FOL
 
 ## Contact
 
-If you have any comments/questions, you can find me [here](pauloesampaio.github.io)
+If you have any comments/questions, you can find me [here](https://pauloesampaio.github.io)
 
 
 
